@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Achiever Shooting Academy | Sector 47 Noida</title>
+    <!-- Tailwind CSS for Styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com">
+    <style>
+        @import url('https://fonts.googleapis.com');
+        body { font-family: 'Inter', sans-serif; }
+        .hero-bg {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com');
+            background-size: cover; background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- 1. Navigation -->
+    <nav class="bg-black text-white p-4 sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <h1 class="text-2xl font-black italic tracking-tighter uppercase">
+                APEX <span class="text-red-600">ACHIEVER</span>
+            </h1>
+            <div class="hidden md:flex gap-8 font-bold text-sm uppercase">
+                <a href="#about" class="hover:text-red-600 transition">About</a>
+                <a href="#gallery" class="hover:text-red-600 transition">Gallery</a>
+                <a href="#locations" class="hover:text-red-600 transition">Locations</a>
+            </div>
+            <a href="tel:+918923000066" class="bg-red-600 text-white px-5 py-2 rounded-full font-bold text-sm hover:bg-red-700 transition">
+                Call: +91 8923000066
+            </a>
+        </div>
+    </nav>
+
+    <!-- 2. Hero Section -->
+    <header class="hero-bg h-[80vh] flex items-center justify-center text-center text-white px-4">
+        <div>
+            <p class="text-red-600 font-bold tracking-[0.3em] uppercase mb-4">Welcome to Noida's Best</p>
+            <h2 class="text-5xl md:text-8xl font-black mb-6 tracking-tighter">AIM. FOCUS. <br><span class="text-red-600">ACHIEVE.</span></h2>
+            <p class="text-lg md:text-xl mb-10 max-w-2xl mx-auto text-gray-300">Professional Olympic-style shooting training in Sector 47, Noida. Lead by international champions.</p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <button class="bg-red-600 text-white px-10 py-4 rounded-full font-black hover:bg-red-700 transition uppercase shadow-xl">Book Free Demo</button>
+                <button class="border-2 border-white text-white px-10 py-4 rounded-full font-black hover:bg-white hover:text-black transition uppercase">View Fees</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 3. Indian Team Stars Section -->
+    <section class="bg-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-center gap-4 mb-12">
+                <span class="text-red-600 text-3xl">★</span>
+                <h2 class="text-3xl font-black text-red-600 uppercase tracking-widest text-center">Indian Team Stars</h2>
+                <span class="text-red-600 text-3xl">★</span>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <!-- Stars List -->
+                <div class="text-center group">
+                    <div class="overflow-hidden border border-gray-200 rounded-sm mb-3">
+                        <img src="https://via.placeholder.com" alt="Athlete" class="w-full h-64 object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                    </div>
+                    <h3 class="font-bold text-xs uppercase tracking-tighter">Apurvi Chandela</h3>
+                </div>
+                <div class="text-center group">
+                    <div class="overflow-hidden border border-gray-200 rounded-sm mb-3">
+                        <img src="https://via.placeholder.com" alt="Athlete" class="w-full h-64 object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                    </div>
+                    <h3 class="font-bold text-xs uppercase tracking-tighter">Gagan Narang</h3>
+                </div>
+                <div class="text-center group">
+                    <div class="overflow-hidden border border-gray-200 rounded-sm mb-3">
+                        <img src="https://via.placeholder.com" alt="Athlete" class="w-full h-64 object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                    </div>
+                    <h3 class="font-bold text-xs uppercase tracking-tighter">Heena Sidhu</h3>
+                </div>
+                <div class="text-center group">
+                    <div class="overflow-hidden border border-gray-200 rounded-sm mb-3">
+                        <img src="https://via.placeholder.com" alt="Athlete" class="w-full h-64 object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                    </div>
+                    <h3 class="font-bold text-xs uppercase tracking-tighter">Jitu Rai</h3>
+                </div>
+                <div class="text-center group">
+                    <div class="overflow-hidden border border-gray-200 rounded-sm mb-3">
+                        <img src="https://via.placeholder.com" alt="Athlete" class="w-full h-64 object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                    </div>
+                    <h3 class="font-bold text-xs uppercase tracking-tighter">Saurabh Chaudhary</h3>
+                </div>
+                <div class="text-center group">
+                    <div class="overflow-hidden border border-gray-200 rounded-sm mb-3">
+                        <img src="https://via.placeholder.com" alt="Athlete" class="w-full h-64 object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                    </div>
+                    <h3 class="font-bold text-xs uppercase tracking-tighter">Manu Bhaker</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. About Section -->
+    <section id="about" class="bg-[#eefbff] py-20 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl font-black mb-10 uppercase tracking-tight">
+                About <span class="text-red-600">Apex Achiever</span> Academy
+            </h2>
+            <div class="text-gray-700 leading-relaxed space-y-6 text-base md:text-lg">
+                <p>The Apex Achiever Shooting Academy was founded by <strong>Mr. Nishant Bhardwaj</strong>, a professional coach and renowned international athlete. We offer world-class infrastructure for pistol and rifle shooting in the heart of <strong>Noida Sector 47</strong>.</p>
+                <p>Our facility includes precision electronic targets and professional-grade weapons. We offer a <strong>free demo class</strong> for newcomers to experience the focus and dedication required for this Olympic sport.</p>
+                <p class="text-red-600 font-black text-2xl italic py-4">Shooting is in our DNA!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Coach Section -->
+    <section class="relative py-24 bg-gray-900 text-white overflow-hidden">
+        <div class="absolute inset-0 z-0 opacity-20 grayscale bg-[url('https://images.unsplash.com')] bg-cover"></div>
+        <div class="container mx-auto px-4 relative z-10 flex flex-col md:flex-row items-center gap-16">
+            <div class="w-full md:w-1/3 flex justify-center">
+                <div class="relative p-2 border border-white/30">
+                    <img src="https://via.placeholder.com" alt="Coach" class="w-full h-auto shadow-2xl">
+                    <div class="absolute -top-2 -left-2 w-6 h-6 border-t-4 border-l-4 border-red-600"></div>
+                    <div class="absolute -bottom-2 -right-2 w-6 h-6 border-b-4 border-r-4 border-red-600"></div>
+                </div>
+            </div>
+            <div class="w-full md:w-2/3">
+                <h2 class="text-red-600 text-2xl font-black uppercase mb-2">Nishant Bhardwaj</h2>
+                <p class="text-3xl font-bold mb-8 leading-tight">International Athlete & Lead Coach at Apex Achiever Academy</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                    <div class="flex gap-4">
+                        <div class="bg-red-600 w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-1"><i class="fas fa-check text-white text-xs"></i></div>
+                        <p class="text-gray-300">Certified International Training Standards</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="bg-red-600 w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-1"><i class="fas fa-bullseye text-white text-xs"></i></div>
+                        <p class="text-gray-300">Electronic Scoring Systems (Sius Equivalent)</p>
+                    </div>
+                </div>
+                <a href="tel:+918923000066" class="bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-full font-black transition inline-block">CONTACT COACH</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Locations Section -->
+    <section id="locations" class="bg-gray-100 py-20 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-center text-3xl font-black mb-12 uppercase">Our <span class="text-red-600">Locations</span></h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white p-10 text-center border-b-4 border-red-600 hover:shadow-2xl transition">
+                    <h3 class="font-black text-lg uppercase mb-2">Sector-47</h3>
+                    <p class="text-red-600 font-bold text-sm mb-6 underline">Main Academy Branch</p>
+                    <button class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-red-600">View Details →</button>
+                </div>
+                <div class="bg-white p-10 text-center border-b-4 border-red-600 hover:shadow-2xl transition">
+                    <h3 class="font-black text-lg uppercase mb-2">Sector-46</h3>
+                    <p class="text-red-600 font-bold text-sm mb-6 uppercase">Bhawani Shankar College</p>
+                    <button class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-red-600">View Details →</button>
+                </div>
+                <div class="bg-white p-10 text-center border-b-4 border-red-600 hover:shadow-2xl transition">
+                    <h3 class="font-black text-lg uppercase mb-2">Sector-62</h3>
+                    <p class="text-red-600 font-bold text-sm mb-6 uppercase">Indus Valley School</p>
+                    <button class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-red-600">View Details →</button>
+                </div>
+                <div class="bg-white p-10 text-center border-b-4 border-red-600 hover:shadow-2xl transition">
+                    <h3 class="font-black text-lg uppercase mb-2">Greater Noida</h3>
+                    <p class="text-red-600 font-bold text-sm mb-6 uppercase">Global School Campus</p>
+                    <button class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-red-600">View Details →</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Gallery Section -->
+    <section id="gallery" class="bg-white py-20 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-center text-4xl font-black mb-12 uppercase italic">Our <span class="text-red-600">Gallery</span></h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <img src="https://via.placeholder.com" class="w-full aspect-video object-cover border hover:scale-105 transition duration-500">
+                <img src="https://via.placeholder.com" class="w-full aspect-video object-cover border hover:scale-105 transition duration-500">
+                <img src="https://via.placeholder.com" class="w-full aspect-video object-cover border hover:scale-105 transition duration-500">
+                <img src="https://via.placeholder.com" class="w-full aspect-video object-cover border hover:scale-105 transition duration-500">
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. Footer -->
+    <footer class="bg-[#111111] text-white pt-20 pb-10">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 border-b border-gray-800 pb-12 mb-10">
+            <div class="space-y-6">
+                <h2 class="text-3xl font-black italic uppercase">APEX <span class="text-red-600">X</span></h2>
+                <p class="text-gray-500 text-sm leading-relaxed">The premier shooting academy in Noida Sector 47. We turn passion into professional excellence with world-class coaching.</p>
+            </div>
+            <div>
+                <h4 class="font-bold uppercase mb-6 text-red-600">Navigation</h4>
+                <ul class="space-y-3 text-sm text-gray-400">
+                    <li><a href="#" class="hover:text-white">Admission</a></li>
+                    <li><a href="#" class="hover:text-white">Fee Structure</a></li>
+                    <li><a href="#" class="hover:text-white">Equipment</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold uppercase mb-6 text-red-600">Quick Contact</h4>
+                <div class="space-y-4 text-sm text-gray-400">
+                    <p><i class="fas fa-phone-alt text-white mr-2"></i> +91 8923000066</p>
+                    <p><i class="fas fa-envelope text-white mr-2"></i> apexshooting@gmail.com</p>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-bold uppercase mb-6 text-red-600">Follow Us</h4>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center hover:bg-red-600 transition"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center hover:bg-red-600 transition"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <p class="text-center text-gray-600 text-xs uppercase tracking-widest">&copy; 2024 Apex Achiever Shooting Academy. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
