@@ -16,12 +16,91 @@
             background-size: cover; background-position: center;
         }
     </style>
+	<!-- for moto change -->
+	<style>
+    /* The exact gradient from your image: Deep Red to Black */
+    .motto-box.active {
+        background: linear-gradient(90deg, rgba(153, 27, 27, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+        border-left: 3px solid #dc2626; /* Bright red edge highlight */
+    }
+    
+    .motto-box.active span {
+        color: white !important;
+        text-shadow: 0 0 10px rgba(220, 38, 38, 0.5);
+    }
+</style>
+
+<script>
+    function startMottoCycle() {
+        const boxes = document.querySelectorAll('.motto-box');
+        let index = 0;
+
+        setInterval(() => {
+            // Reset current active box
+            boxes[index].classList.remove('active');
+            boxes[index].querySelector('span').classList.replace('text-white', 'text-gray-500');
+
+            // Move to next box
+            index = (index + 1) % boxes.length;
+
+            // Activate next box
+            boxes[index].classList.add('active');
+            boxes[index].querySelector('span').classList.replace('text-gray-500', 'text-white');
+        }, 3000); // Change every 3 seconds
+    }
+    
+    document.addEventListener('DOMContentLoaded', startMottoCycle);
+</script>
+	
+	<!-- Simple Script for Carousel Logic -->
+<script>
+    // 1. Simply add your image URLs to this list
+	document.addEventListener('DOMContentLoaded', () => {
+    const images = [
+		"./images/manuBhaskerHeader1.png",
+        "./images/abhinavHeader.png", // Olympic Focus
+        "./images/nishantHeader.jpg", // Precision Gear
+        "./images/manuBhaskerHeader.png"  // High Contrast Range
+    ];
+
+    let currentIndex = 0;
+    const imgElement = document.getElementById('carousel-img');
+
+    // PRELOAD: This prevents that annoying "white flash" between images
+    images.forEach(src => {
+        const img = new Image();
+        img.src = src;
+    });
+
+    function changeImage() {
+        // Step 1: Start Fade Out
+        imgElement.classList.add('opacity-0');
+        imgElement.classList.remove('opacity-50');
+
+        setTimeout(() => {
+            // Step 2: Change the source while the image is invisible
+            currentIndex = (currentIndex + 1) % images.length;
+            imgElement.src = images[currentIndex];
+
+            // Step 3: Once the new image is ready, Fade back In
+            imgElement.onload = () => {
+                imgElement.classList.remove('opacity-0');
+                imgElement.classList.add('opacity-50');
+            };
+        }, 1000); // 1000ms matches the 'duration-1000' CSS class
+    }
+
+    // Run the function every 5 seconds
+    setInterval(changeImage, 5000);});
+</script>
 </head>
 <body class="bg-gray-50">
 
     <!-- 1. Navigation -->
     <nav class="bg-black text-white p-4 sticky top-0 z-50 shadow-lg">
         <div class="container mx-auto flex justify-between items-center px-4">
+		
+				<img src="./images/logo.jpg" alt="Logo" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
             <h1 class="text-2xl font-black italic tracking-tighter uppercase">
                 APEX <span class="text-red-600">ACHIEVER</span>
             </h1>
@@ -37,17 +116,100 @@
     </nav>
 
     <!-- 2. Hero Section -->
-    <header class="hero-bg h-[80vh] flex items-center justify-center text-center text-white px-4">
-        <div>
-            <p class="text-red-600 font-bold tracking-[0.3em] uppercase mb-4">Welcome to Noida's Best</p>
-            <h2 class="text-5xl md:text-8xl font-black mb-6 tracking-tighter">AIM. FOCUS. <br><span class="text-red-600">ACHIEVE.</span></h2>
-            <p class="text-lg md:text-xl mb-10 max-w-2xl mx-auto text-gray-300">Professional Olympic-style shooting training in Sector 47, Noida. Lead by international champions.</p>
-            <div class="flex flex-col md:flex-row gap-4 justify-center">
-                <button class="bg-red-600 text-white px-10 py-4 rounded-full font-black hover:bg-red-700 transition uppercase shadow-xl">Book Free Demo</button>
-                <button class="border-2 border-white text-white px-10 py-4 rounded-full font-black hover:bg-white hover:text-black transition uppercase">View Fees</button>
+    <header class="relative h-[85vh] w-full overflow-hidden bg-black">
+    
+    <!-- Carousel Container -->
+   <div class="absolute inset-0 z-0 bg-black">
+    <img id="carousel-img" 
+         src="./images/abhinavHeader.png" 
+         class="w-full h-full object-cover opacity-50 grayscale transition-opacity duration-1000 ease-in-out">
+    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+</div>
+
+    <!-- Content -->
+    <div class="relative z-10 container mx-auto h-full flex flex-col justify-center px-6">
+        <div class="max-w-4xl">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="h-[2px] w-12 bg-red-600"></span>
+                <p class="text-red-600 font-black tracking-[0.3em] uppercase text-sm">Official Olympic Pathway • Sector 47 Noida</p>
+            </div>
+            
+            <h2 class="text-5xl md:text-8xl font-black text-white leading-[0.9] mb-8">
+                <span class="block italic text-gray-400 text-3xl md:text-4xl mb-2 font-light">The Goal is Gold.</span>
+                MASTER THE <br>
+                <span class="text-red-600">10M PRECISION.</span>
+            </h2>
+
+            <p class="text-xl text-gray-300 mb-10 max-w-2xl leading-relaxed border-l-2 border-red-600 pl-6">
+                Under the mentorship of International Athlete <span class="text-white font-bold">Nishant Bhardwaj</span>, 
+                we transform beginners into Olympic-ready marksmen using world-class 
+                <span class="text-white italic underline">SIUS Electronic Targets.</span>
+            </p>
+
+            <div class="flex flex-wrap gap-6">
+                <button class="bg-red-600 text-white px-10 py-4 rounded-none font-black hover:bg-white hover:text-black transition-all duration-300 uppercase tracking-tighter">
+                    Start Your Journey
+                </button>
+                <button class="border border-white/40 text-white px-10 py-4 rounded-none font-black hover:bg-red-600 hover:border-red-600 transition-all duration-300 uppercase tracking-tighter">
+                    View Range Records
+                </button>
             </div>
         </div>
-    </header>
+    </div>
+
+    <!-- Bottom Motto Bar -->
+   <div class="absolute bottom-0 left-0 w-full bg-black border-t border-white/10 z-20 hidden md:block">
+    <div class="container mx-auto flex items-center h-16" id="motto-bar">
+        
+        <!-- Motto 1 -->
+        <div class="motto-box active flex-1 h-full flex items-center justify-center transition-all duration-700">
+            <span class="text-white font-black tracking-[0.2em] text-[10px] lg:text-xs uppercase">Precision Focus</span>
+        </div>
+
+        <span class="text-red-900/40">/</span>
+
+        <!-- Motto 2 -->
+        <div class="motto-box flex-1 h-full flex items-center justify-center transition-all duration-700">
+            <span class="text-gray-500 font-black tracking-[0.2em] text-[10px] lg:text-xs uppercase">Olympic Standard</span>
+        </div>
+
+        <span class="text-red-900/40">/</span>
+
+        <!-- Motto 3 -->
+        <div class="motto-box flex-1 h-full flex items-center justify-center transition-all duration-700">
+            <span class="text-gray-500 font-black tracking-[0.2em] text-[10px] lg:text-xs uppercase">Mental Resilience</span>
+        </div>
+
+        <span class="text-red-900/40">/</span>
+
+        <!-- Motto 4 -->
+        <div class="motto-box flex-1 h-full flex items-center justify-center transition-all duration-700">
+            <span class="text-gray-500 font-black tracking-[0.2em] text-[10px] lg:text-xs uppercase">National Pride</span>
+        </div>
+        
+    </div>
+</div>
+</header>
+<section class="bg-black py-10 border-b border-gray-800">
+    <div class="container mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="text-center">
+            <h4 class="text-red-600 text-4xl font-black italic">100%</h4>
+            <p class="text-gray-500 text-xs uppercase mt-2">ISSF Compliance</p>
+        </div>
+        <div class="text-center border-l border-gray-800">
+            <h4 class="text-white text-4xl font-black italic">SIUS</h4>
+            <p class="text-gray-500 text-xs uppercase mt-2">Electronic Scoring</p>
+        </div>
+        <div class="text-center border-l border-gray-800">
+            <h4 class="text-white text-4xl font-black italic">24/7</h4>
+            <p class="text-gray-500 text-xs uppercase mt-2">Expert Mentorship</p>
+        </div>
+        <div class="text-center border-l border-gray-800">
+            <h4 class="text-red-600 text-4xl font-black italic">PRO</h4>
+            <p class="text-gray-500 text-xs uppercase mt-2">Olympic Grade Air Guns</p>
+        </div>
+    </div>
+</section>
 
     <!-- 3. Indian Team Stars Section -->
     <section class="bg-white py-16">
@@ -61,37 +223,37 @@
                 <!-- Stars List -->
                 <div class="text-center group">
                     <div class="overflow-hidden border border-gray-200 rounded-sm mb-3">
-                        <img src="https://via.placeholder.com" alt="Athlete" class="w-full h-64 object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                        <img src="./images/abhinav.png" alt="Athlete" class="w-full h-64 object-cover  group-hover:grayscale-0 transition duration-500">
                     </div>
-                    <h3 class="font-bold text-xs uppercase tracking-tighter">Apurvi Chandela</h3>
+                    <h3 class="font-bold text-xs uppercase tracking-tighter">Abhinav Bindra</h3>
                 </div>
                 <div class="text-center group">
                     <div class="overflow-hidden border border-gray-200 rounded-sm mb-3">
-                        <img src="https://via.placeholder.com" alt="Athlete" class="w-full h-64 object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                        <img src="./images/vijay.png" alt="Athlete" class="w-full h-64 object-cover  group-hover:grayscale-0 transition duration-500">
                     </div>
-                    <h3 class="font-bold text-xs uppercase tracking-tighter">Gagan Narang</h3>
+                    <h3 class="font-bold text-xs uppercase tracking-tighter">Vijay Kumar</h3>
                 </div>
                 <div class="text-center group">
                     <div class="overflow-hidden border border-gray-200 rounded-sm mb-3">
-                        <img src="https://via.placeholder.com" alt="Athlete" class="w-full h-64 object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                        <img src="./images/hinaSindhu.png" alt="Athlete" class="w-full h-64 object-cover group-hover:grayscale-0 transition duration-500">
                     </div>
                     <h3 class="font-bold text-xs uppercase tracking-tighter">Heena Sidhu</h3>
                 </div>
                 <div class="text-center group">
                     <div class="overflow-hidden border border-gray-200 rounded-sm mb-3">
-                        <img src="https://via.placeholder.com" alt="Athlete" class="w-full h-64 object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                        <img src="./images/sarbjot.png" alt="Athlete" class="w-full h-64 object-cover  group-hover:grayscale-0 transition duration-500">
                     </div>
-                    <h3 class="font-bold text-xs uppercase tracking-tighter">Jitu Rai</h3>
+                    <h3 class="font-bold text-xs uppercase tracking-tighter">Sarabjot Singh</h3>
                 </div>
                 <div class="text-center group">
                     <div class="overflow-hidden border border-gray-200 rounded-sm mb-3">
-                        <img src="https://via.placeholder.com" alt="Athlete" class="w-full h-64 object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                        <img src="./images/swapnil.png" alt="Athlete" class="w-full h-64 object-cover  group-hover:grayscale-0 transition duration-500">
                     </div>
-                    <h3 class="font-bold text-xs uppercase tracking-tighter">Saurabh Chaudhary</h3>
+                    <h3 class="font-bold text-xs uppercase tracking-tighter">Swapnil Kusale</h3>
                 </div>
                 <div class="text-center group">
                     <div class="overflow-hidden border border-gray-200 rounded-sm mb-3">
-                        <img src="https://via.placeholder.com" alt="Athlete" class="w-full h-64 object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                        <img src="./images/manuBhasker.png" alt="Athlete" class="w-full h-64 object-cover  group-hover:grayscale-0 transition duration-500">
                     </div>
                     <h3 class="font-bold text-xs uppercase tracking-tighter">Manu Bhaker</h3>
                 </div>
@@ -119,7 +281,7 @@
         <div class="container mx-auto px-4 relative z-10 flex flex-col md:flex-row items-center gap-16">
             <div class="w-full md:w-1/3 flex justify-center">
                 <div class="relative p-2 border border-white/30">
-                    <img src="https://via.placeholder.com" alt="Coach" class="w-full h-auto shadow-2xl">
+                    <img src="./images/nishant.jpg" alt="Coach" class="w-full h-auto shadow-2xl">
                     <div class="absolute -top-2 -left-2 w-6 h-6 border-t-4 border-l-4 border-red-600"></div>
                     <div class="absolute -bottom-2 -right-2 w-6 h-6 border-b-4 border-r-4 border-red-600"></div>
                 </div>
@@ -148,23 +310,8 @@
             <h2 class="text-center text-3xl font-black mb-12 uppercase">Our <span class="text-red-600">Locations</span></h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div class="bg-white p-10 text-center border-b-4 border-red-600 hover:shadow-2xl transition">
-                    <h3 class="font-black text-lg uppercase mb-2">Sector-47</h3>
-                    <p class="text-red-600 font-bold text-sm mb-6 underline">Main Academy Branch</p>
-                    <button class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-red-600">View Details →</button>
-                </div>
-                <div class="bg-white p-10 text-center border-b-4 border-red-600 hover:shadow-2xl transition">
                     <h3 class="font-black text-lg uppercase mb-2">Sector-46</h3>
                     <p class="text-red-600 font-bold text-sm mb-6 uppercase">Bhawani Shankar College</p>
-                    <button class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-red-600">View Details →</button>
-                </div>
-                <div class="bg-white p-10 text-center border-b-4 border-red-600 hover:shadow-2xl transition">
-                    <h3 class="font-black text-lg uppercase mb-2">Sector-62</h3>
-                    <p class="text-red-600 font-bold text-sm mb-6 uppercase">Indus Valley School</p>
-                    <button class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-red-600">View Details →</button>
-                </div>
-                <div class="bg-white p-10 text-center border-b-4 border-red-600 hover:shadow-2xl transition">
-                    <h3 class="font-black text-lg uppercase mb-2">Greater Noida</h3>
-                    <p class="text-red-600 font-bold text-sm mb-6 uppercase">Global School Campus</p>
                     <button class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-red-600">View Details →</button>
                 </div>
             </div>
@@ -176,10 +323,10 @@
         <div class="container mx-auto">
             <h2 class="text-center text-4xl font-black mb-12 uppercase italic">Our <span class="text-red-600">Gallery</span></h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <img src="https://via.placeholder.com" class="w-full aspect-video object-cover border hover:scale-105 transition duration-500">
-                <img src="https://via.placeholder.com" class="w-full aspect-video object-cover border hover:scale-105 transition duration-500">
-                <img src="https://via.placeholder.com" class="w-full aspect-video object-cover border hover:scale-105 transition duration-500">
-                <img src="https://via.placeholder.com" class="w-full aspect-video object-cover border hover:scale-105 transition duration-500">
+                <img src="./images/nishantMedal.jpg" class="w-full aspect-video object-cover border hover:scale-105 transition duration-500">
+                <img src="./images/galary1.jpg" class="w-full aspect-video object-cover border hover:scale-105 transition duration-500">
+                <img src="./images/galary2.jpg" class="w-full aspect-video object-cover border hover:scale-105 transition duration-500">
+                <img src="./images/galary3.jpg" class="w-full aspect-video object-cover border hover:scale-105 transition duration-500">
             </div>
         </div>
     </section>
@@ -188,7 +335,7 @@
     <footer class="bg-[#111111] text-white pt-20 pb-10">
         <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 border-b border-gray-800 pb-12 mb-10">
             <div class="space-y-6">
-                <h2 class="text-3xl font-black italic uppercase">APEX <span class="text-red-600">X</span></h2>
+                <h2 class="text-3xl font-black italic uppercase">APEX <span class="text-red-600">Achiever</span></h2>
                 <p class="text-gray-500 text-sm leading-relaxed">The premier shooting academy in Noida Sector 47. We turn passion into professional excellence with world-class coaching.</p>
             </div>
             <div>
@@ -209,8 +356,8 @@
             <div>
                 <h4 class="font-bold uppercase mb-6 text-red-600">Follow Us</h4>
                 <div class="flex gap-4">
-                    <a href="#" class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center hover:bg-red-600 transition"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center hover:bg-red-600 transition"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.instagram.com/apexachievershootingacademy" target="newwindow" class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center hover:bg-red-600 transition"><img src="./images/instra.jpg" alt="Logo" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover;"></a>
+                    <a href="#" class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center hover:bg-red-600 transition"><img src="./images/facebook.png" alt="Logo" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover;"></a>
                 </div>
             </div>
         </div>
