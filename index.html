@@ -105,7 +105,117 @@
     }
     
     document.addEventListener('DOMContentLoaded', startMottoCycle);
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+    const carousel = document.getElementById('achievements-carousel');
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const scrollAmount = 320; // Matches card width + gap
+
+    // 1. Manual Navigation
+    nextBtn.addEventListener('click', () => {
+        carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        resetAutoScroll();
+    });
+
+    prevBtn.addEventListener('click', () => {
+        carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        resetAutoScroll();
+    });
+
+    // 2. Auto-Scroll Logic
+    let autoScroll = setInterval(() => {
+        // If reached end, reset to start
+        if (carousel.scrollLeft + carousel.offsetWidth >= carousel.scrollWidth) {
+            carousel.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+            carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+    }, 4000); // 4-second interval
+
+    // 3. Reset timer on user interaction
+    function resetAutoScroll() {
+        clearInterval(autoScroll);
+        autoScroll = setInterval(() => {
+            if (carousel.scrollLeft + carousel.offsetWidth >= carousel.scrollWidth) {
+                carousel.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            }
+        }, 4000);
+    }
+});
 </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const imageList = [
+        { src: './images/CommonHeader.jpeg', desc: 'A group of award winners and coaches celebrating an achievement at the Olympic-standard 10m Air Pistol range facilities' },
+        { src: './images/galary3.jpg', desc: 'An awards ceremony or event where our student won a silver medal in the competition, celebrating precision training achievements at our Noida shooting academy.' },        
+        { src: './images/HeaderNishant4.jpeg', desc: 'Modern electronic targets at Noida, Sector 47 shooting range.' },
+        { src: './images/karika_shooting_range1.jpeg', desc: 'Action shot of a student during competition.' },
+        { src: './images/galary1.jpg', desc: 'World-class equipment used for professional training.' },
+        { src: './images/gallary_shoting_range.jpeg', desc: 'A congratulatory poster for Karika Upadhyay on her outstanding performance in the Indian Team Trials 1 and 2 2026 in 10m air pistol.' },
+        { src: './images/galary2.jpg', desc: 'Students focusing on accuracy and technique.' },
+        { src: './images/gallary_shoting_range1.jpeg', desc: 'Apex Achiever students proudly displaying their medals.' },
+        { src: './images/gallary_shoting_range2.jpeg', desc: 'A closer look at the professional range setup.' },
+        { src: './images/NishantCard.jpeg', desc: 'Nishant Bhardwaj: Certified International Coach.' },
+        { src: './images/karika_shooting_range2.jpeg', desc: 'Our student won a 🥇 medal in a recent state-level Shooting competition.' },
+        { src: './images/nishantHeader.jpg', desc: 'The only international shooting coach in Noida.' }
+    ];
+
+    const container = document.getElementById('gallery-container');
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    
+    let currentIndex = 0;
+    const itemsPerLoad = 6;
+
+    function renderImages() {
+        const nextBatch = imageList.slice(currentIndex, currentIndex + itemsPerLoad);
+        
+        nextBatch.forEach(item => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'break-inside-avoid bg-white rounded-xl shadow-md overflow-hidden mb-6 group opacity-0 translate-y-4 transition-all duration-700';
+            
+            wrapper.innerHTML = `
+                <div class="overflow-hidden">
+                    <img src="${item.src}" alt="${item.desc}" 
+                         class="w-full transform group-hover:scale-110 transition duration-500 cursor-pointer"
+                         loading="lazy">
+                </div>
+                <div class="p-4">
+                    <p class="text-gray-600 text-sm font-medium italic border-l-2 border-red-600 pl-3">
+                        ${item.desc}
+                    </p>
+                </div>
+            `;
+            
+            container.appendChild(wrapper);
+            
+            // Small timeout to trigger the "fade-in" animation
+            setTimeout(() => {
+                wrapper.classList.remove('opacity-0', 'translate-y-4');
+            }, 100);
+        });
+
+        currentIndex += itemsPerLoad;
+
+        // Hide button if no more images left
+        if (currentIndex >= imageList.length) {
+            loadMoreBtn.style.display = 'none';
+        }
+    }
+
+    // Load initial 6
+    renderImages();
+
+    // Load more on click
+    loadMoreBtn.addEventListener('click', renderImages);
+});
+
+</script>
+
 	
 	<!-- Simple Script for Carousel Logic -->
 <script>
@@ -149,27 +259,77 @@
     // Run the function every 5 seconds
     setInterval(changeImage, 5000);});
 </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuButton = document.getElementById('menuButton');
+        const menuLinks = document.getElementById('menuLinks');
+
+        menuButton.addEventListener('click', () => {
+            // Toggles the 'hidden' class to show/hide the menu
+            menuLinks.classList.toggle('hidden');
+        });
+
+        // Optional: Close menu when a link is clicked
+        const mobileLinks = menuLinks.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuLinks.classList.add('hidden');
+            });
+        });
+    });
+</script>
+
 </head>
 <body class="bg-gray-50">
 
     <!-- 1. Navigation -->
-    <nav class="bg-black text-white p-4 sticky top-0 z-50 shadow-lg">
-        <div class="container mx-auto flex justify-between items-center px-4">
-		
-				<img src="./images/logo.jpg" alt="Logo" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
-            <h1 class="text-2xl font-black italic tracking-tighter uppercase">
+    <!-- 1. Navigation (Mobile Menu Added) -->
+<nav class="bg-black text-white p-4 sticky top-0 z-50 shadow-lg">
+    <div class="container mx-auto flex justify-between items-center px-4">
+        
+        <!-- Logo and Title -->
+        <div class="flex items-center space-x-4">
+            <img src="./images/logo.jpg" alt="Logo" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+            <h1 class="text-xl md:text-2xl font-black italic tracking-tighter uppercase">
                 APEX <span class="text-red-600">ACHIEVER</span>
             </h1>
-            <div class="hidden md:flex gap-8 font-bold text-sm uppercase">
-                <a href="#about" class="hover:text-red-600 transition">About</a>
-                <a href="#gallery" class="hover:text-red-600 transition">Gallery</a>
-                <a href="#locations" class="hover:text-red-600 transition">Locations</a>
-            </div>
-            <a href="tel:+919690868182" class="bg-red-600 text-white px-5 py-2 rounded-full font-bold text-sm hover:bg-red-700 transition">
-                Call: +91 9690868182
-            </a>
         </div>
-    </nav>
+
+        <!-- Desktop Links -->
+        <div class="hidden md:flex gap-8 font-bold text-sm uppercase">
+            <a href="#about" class="hover:text-red-600 transition">About</a>
+            <a href="#coach" class="hover:text-red-600 transition">Coach</a>
+            <a href="#achievements" class="hover:text-red-600 transition">Achievements</a>
+            <a href="#philosophy" class="hover:text-red-600 transition">Philosophy</a>
+            <a href="#gallery" class="hover:text-red-600 transition">Gallery</a>
+            <a href="#locations" class="hover:text-red-600 transition">Locations</a>
+        </div>
+
+        <!-- Mobile Menu Button (Visible only on mobile) -->
+        <button id="menuButton" class="md:hidden text-2xl">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Call to Action (Hidden on small mobile screens to save space) -->
+        <a href="tel:+919690868182" class="hidden sm:block bg-red-600 text-white px-5 py-2 rounded-full font-bold text-sm hover:bg-red-700 transition">
+            Call: +91 9690868182
+        </a>
+    </div>
+
+    <!-- Mobile Menu Links Container (Hidden by default) -->
+    <div id="menuLinks" class="hidden md:hidden flex-col gap-4 p-4 bg-black/95 absolute top-full left-0 w-full shadow-lg">
+        <a href="#about" class="block hover:text-red-600 transition font-bold uppercase">About</a>
+        <a href="#coach" class="block hover:text-red-600 transition font-bold uppercase">Coach</a>
+        <a href="#philosophy" class="block hover:text-red-600 transition font-bold uppercase">Philosophy</a>
+        <a href="#gallery" class="block hover:text-red-600 transition font-bold uppercase">Gallery</a>
+        <a href="#locations" class="block hover:text-red-600 transition font-bold uppercase">Locations</a>
+        <a href="tel:+919690868182" class="block bg-red-600 text-center text-white px-5 py-2 rounded-full font-bold uppercase hover:bg-red-700 transition">
+            Call: +91 9690868182
+        </a>
+    </div>
+</nav>
+
 
     <!-- 2. Hero Section -->
 
@@ -296,40 +456,72 @@
 </section>
 
 <!-- Student Achievements Carousel -->
-<section class="bg-gray-900 text-white py-10 overflow-hidden">
-    <div class="text-center mb-10">
-  <h2 class="text-3xl md:text-4xl font-bold text-white">
-    Our Star Achievers 🏆
-  </h2>
-  <p class="text-gray-400 mt-2">
-    Students who made us proud at national level
-  </p>
-</div>
-    <div class="max-w-5xl mx-auto px-4">
-        <div class="flex gap-8 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-6 md:justify-center achievements-scroll">
 
+<section id="achievements" class="py-16 bg-white overflow-hidden relative group">
+    <div class="container mx-auto px-6">
+        <h2 class="text-3xl font-black mb-8 italic uppercase border-l-4 border-red-600 pl-4">
+            Our <span class="text-red-600">Champions</span>
+        </h2>
+        
+        <!-- Navigation Buttons -->
+        <button id="prevBtn" class="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-black/50 text-white p-3 rounded-full hover:bg-red-600 transition opacity-0 group-hover:opacity-100">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button id="nextBtn" class="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-black/50 text-white p-3 rounded-full hover:bg-red-600 transition opacity-0 group-hover:opacity-100">
+            <i class="fas fa-chevron-right"></i>
+        </button>
 
-    <!-- CARD -->
-    <div class="snap-center w-[85%] md:w-[340px] shrink-0 snap-center bg-black rounded-xl p-8 text-center space-y-3 shadow-xl hover:shadow-red-500/30 transition-all duration-300">
-        <img src="./images/karika_achiver.jpeg" class="w-36 h-36 md:w-40 md:h-40 rounded-full border-4 border-red-500 mx-auto">
-        <h3 class="font-bold uppercase">Karika</h3>
-        <p class="text-red-500 font-bold">🥇 Gold Medal</p>
-        <p class="text-gray-400 text-sm">CBSE National 2025</p>
+        <!-- Scrolling Wrapper -->
+        <div id="achievements-carousel" class="flex overflow-x-auto gap-6 pb-8 achievements-scroll snap-x snap-mandatory no-scrollbar scroll-smooth">
+            <!-- Student Card 1 -->
+             
+            <div class="flex-none w-72 md:w-80 snap-start bg-gray-100 rounded-xl overflow-hidden shadow-md">
+                <img src="./images/karika_achiver.jpeg" class="w-full h-64 object-cover" alt="Arjun Singh">
+                <div class="p-5">
+                    <h3 class="font-bold text-xl">Karika</h3>
+                    <p class="text-red-600 font-bold text-sm uppercase">CBSE 🥇 Gold Medalist</p>
+                </div>
+            </div>
+
+             
+            <div class="flex-none w-72 md:w-80 snap-start bg-gray-100 rounded-xl overflow-hidden shadow-md">
+                <img src="./images/rudhra_achiver.jpeg" class="w-full h-64 object-cover" alt="Arjun Singh">
+                <div class="p-5">
+                    <h3 class="font-bold text-xl">Rudhra</h3>
+                    <p class="text-red-600 font-bold text-sm uppercase">CBSE 🥇 Gold  Medalist</p>
+                </div>
+            </div>
+
+            <div class="flex-none w-72 md:w-80 snap-start bg-gray-100 rounded-xl overflow-hidden shadow-md">
+                <img src="./images/karika_achiver_State.jpeg" class="w-full h-64 object-cover" alt="Arjun Singh">
+                <div class="p-5">
+                    <h3 class="font-bold text-xl">Karika</h3>
+                    <p class="text-red-600 font-bold text-sm uppercase">State 🥇 Gold  Medalist</p>
+                </div>
+            </div>
+
+            <!-- Repeat cards as needed... -->
+            <div class="flex-none w-72 md:w-80 snap-start bg-gray-100 rounded-xl overflow-hidden shadow-md">
+                <img src="./images/Manasvi_achiver_state silver medalist.jpeg" class="w-full h-64 object-cover" alt="Arjun Singh">
+                <div class="p-5">
+                    <h3 class="font-bold text-xl">Manasvi</h3>
+                    <p class="text-red-600 font-bold text-sm uppercase">24th Pre State 🥈 Silver Medalist</p>
+                </div>
+            </div>
+            
+            <div class="flex-none w-72 md:w-80 snap-start bg-gray-100 rounded-xl overflow-hidden shadow-md">
+                <img src="./images/karika_achiver_SGFI.jpeg" class="w-full h-64 object-cover" alt="Arjun Singh">
+                <div class="p-5">
+                    <h3 class="font-bold text-xl">Karika</h3>
+                    <p class="text-red-600 font-bold text-sm uppercase">SGFI 🥈 Silver Medalist</p>
+                </div>
+            </div>
+            
+            
+        </div>
     </div>
-
-    <div class="snap-center w-[85%] md:w-[340px] shrink-0 snap-center bg-black rounded-xl p-8 text-center space-y-3 shadow-xl hover:shadow-red-500/30 transition-all duration-300">
-        <img src="./images/rudhra_achiver.jpeg" class="w-36 h-36 md:w-40 md:h-40 rounded-full border-4 border-red-500 mx-auto">
-        <h3 class="font-bold uppercase">Rudra</h3>
-        <p class="text-red-500 font-bold">🥇 Gold Medal</p>
-        <p class="text-gray-400 text-sm">CBSE National 2025</p>
-    </div>
-
-    <!-- Add unlimited cards — NOTHING else to change -->
-</div>
-</div>
-</div>
-
 </section>
+
 
 
 
@@ -355,7 +547,7 @@
      target="_blank"
      class="block relative group">
 
-      <img src="https://img.youtube.com/vi/jGYKn9lbWlU/maxresdefault.jpg"
+      <img src="./images/coach_in_action.png"
            class="rounded-xl w-full group-hover:scale-105 transition duration-300">
 
       <div class="absolute inset-0 flex items-center justify-center">
@@ -426,21 +618,216 @@
             </div>
         </div>
     </section>-->
-    <!-- 4. About Section -->
-    <section id="about" class="bg-[#eefbff] py-20 px-4">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-4xl font-black mb-10 uppercase tracking-tight">
-                About <span class="text-red-600">Apex Achiever</span> Academy
-            </h2>
-            <div class="text-gray-700 leading-relaxed space-y-6 text-base md:text-lg">
-                <p>The Apex Achiever Shooting Academy was founded by <strong>Mr. Nishant Bhardwaj</strong>, a professional coach and renowned international athlete. We offer world-class infrastructure for pistol and rifle shooting in the heart of <strong>Noida Sector 47</strong>.</p>
-                <p>Our facility includes precision electronic targets and professional-grade weapons. We offer a <strong>free demo class</strong> for newcomers to experience the focus and dedication required for this Olympic sport.</p>
-                <p class="text-red-600 font-black text-2xl italic py-4">Shooting is in our DNA!</p>
+
+
+    <!-- About Apex Achiever Academy Section -->
+<!-- About Apex Achiever Academy Section -->
+<!-- About Apex Achiever Academy Section (Matching Original Image Style) -->
+<section id="about" class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+        
+        <!-- Main Title -->
+        <h2 class="text-xl font-bold mb-6 uppercase border-l-4 border-red-600 pl-4">
+            About <span class="text-red-600">Apex Achiever</span> Academy
+        </h2>
+        
+        <!-- About Paragraph -->
+        <p class="mt-4 mb-12 text-gray-700 leading-relaxed max-w-4xl">
+            Located in the heart of <span class="font-bold">Sector 47, Noida</span>, Apex Achiever Academy is the region’s only shooting range offering mentorship by an <span class="font-bold">ISSF-registered International Athlete</span>, Nishant Bhardwaj. We are committed to fostering top-tier shooting talent from beginners to national champions.
+        </p>
+
+        <!-- The Apex Difference Title -->
+        <h3 class="text-lg font-bold mb-4 uppercase text-gray-800">
+            The Apex Difference: Train with the Best
+        </h3>
+            
+        <!-- Table Structure (Matches the image's clean lines) -->
+        <div class="overflow-x-auto border border-gray-200 rounded-lg">
+            <table class="min-w-full divide-y divide-gray-200">
+                <!-- Table Header (Dark Background from image) -->
+                <thead class="bg-gray-800 text-white">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                            Feature
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                            Details
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                            Benefit to You
+                        </th>
+                    </tr>
+                </thead>
+                <!-- Table Body (Alternating light gray rows from image) -->
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <!-- Row 1 -->
+                    <tr class="bg-gray-50">
+                        <td class="px-6 py-4 whitespace-nowrap font-semibold text-red-600">International Mentorship</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-gray-700">Led by Olympian Nishant Bhardwaj</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-gray-500">Learn world-class techniques from an active professional.</td>
+                    </tr>
+                    <!-- Row 2 -->
+                    <tr class="bg-white">
+                        <td class="px-6 py-4 whitespace-nowrap font-semibold text-red-600">Olympic Standard</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-gray-700">10m range with <span class="text-blue-600">SIUS electronic targets</span></td>
+                        <td class="px-6 py-4 whitespace-nowrap text-gray-500">Practice using the exact equipment used in major competitions.</td>
+                    </tr>
+                    <!-- Row 3 -->
+                    <tr class="bg-gray-50">
+                        <td class="px-6 py-4 whitespace-nowrap font-semibold text-red-600">Proven Results</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-gray-700">State, National, and International medalists</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-gray-500">Join a legacy of successful, competition-ready shooters.</td>
+                    </tr>
+                    <!-- Row 4 -->
+                    <tr class="bg-white">
+                        <td class="px-6 py-4 whitespace-nowrap font-semibold text-red-600">Beginner Friendly</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-gray-700">Structured foundational courses</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-gray-500">Safe, professional introduction to the sport of shooting.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Mission Statement -->
+        <div class="mt-12">
+            <h3 class="text-lg font-bold mb-4 uppercase text-gray-800">
+                Our Mission
+            </h3>
+            <p class="text-gray-700 leading-relaxed max-w-4xl">
+                Our mission is to provide an accessible, safe, and professional environment for aspiring shooters in Noida to achieve their full potential. Whether your goal is a new hobby, a state medal, or Olympic glory, Apex Achiever provides the expert guidance and facilities required to succeed.
+            </p>
+        </div>
+
+    </div>
+</section>
+<!-- Training Philosophy Section -->
+<section id="philosophy" class="py-20 bg-gray-50">
+    <div class="container mx-auto px-6">
+        
+        <!-- Slogan -->
+        <h3 class="text-3xl font-black text-center mb-12 italic uppercase">
+            <span class="text-red-600">Precision</span>. Discipline. <span class="text-red-600">Excellence</span>.
+        </h3>
+
+        <div class="grid md:grid-cols-2 gap-10 items-center">
+            
+            <!-- Left Side: Philosophy Text -->
+            <div>
+                <h4 class="text-2xl font-bold mb-4 text-gray-800">
+                    Our Core Philosophy
+                </h4>
+                <p class="mb-4 text-gray-700 leading-relaxed">
+                    Our head coach specializes in both <span class="font-semibold">rifle and pistol</span> shooting disciplines, providing comprehensive expertise across the sport. 
+                </p>
+                <p class="mb-6 text-gray-700 leading-relaxed">
+                    We understand that this sport requires immense concentration and dedication. Our academy is committed to providing the right environment for any individual to achieve a respectable level, which we actively support.
+                </p>
+
+                <!-- Key Benefits -->
+                <ul class="space-y-4">
+                    <li class="flex items-start text-gray-700">
+                        <i class="fas fa-check-circle text-red-600 mt-1 mr-3 flex-shrink-0"></i>
+                        A free demo class is provided for individuals unsure about the sport within our Delhi NCR/Noida range.
+                    </li>
+                    <li class="flex items-start text-gray-700">
+                         <i class="fas fa-check-circle text-red-600 mt-1 mr-3 flex-shrink-0"></i>
+                        If an individual gets selected for any level of competitions, the shooting academy will undoubtedly lend our professional weapons.
+                    </li>
+                    <li class="flex items-start text-gray-700">
+                         <i class="fas fa-check-circle text-red-600 mt-1 mr-3 flex-shrink-0"></i>
+                        Attending our shooting classes is a great experience in itself and opens various opportunities for career and personal growth.
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Right Side: Call to Action -->
+            <div class="bg-black p-8 rounded-xl shadow-xl text-white">
+                <h4 class="text-xl font-bold mb-4">Ready to Start Your Journey?</h4>
+                <p class="mb-6 text-gray-300">
+                    Discover your potential with a free introductory session at our Sector 47 Noida facility.
+                </p>
+                <a href="tel:+919690868182" class="block w-full text-center bg-red-600 text-white px-5 py-3 rounded-lg font-bold hover:bg-red-700 transition transform hover:scale-105">
+                    Schedule Free Demo Class Today
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+    <!-- Coach & Features Section -->
+<section id="coach" class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="flex flex-col lg:flex-row items-center gap-12">
+            
+            <!-- Left: Image with Badge -->
+            <div class="lg:w-1/2 relative">
+                <div class="absolute -top-4 -left-4 bg-red-600 text-white px-6 py-2 z-10 font-bold italic transform -rotate-2 shadow-lg">
+                    THE ONLY INTERNATIONAL COACH IN NOIDA
+                </div>
+                <img src="./images/nishantHeader.jpg" alt="Nishant Bhardwaj" class="rounded-2xl shadow-2xl border-b-8 border-red-600 grayscale hover:grayscale-0 transition duration-500">
+                <div class="absolute bottom-4 right-4 bg-black/80 backdrop-blur-md p-4 rounded-lg text-white">
+                    <p class="text-xs uppercase tracking-widest text-red-500 font-bold">ISSF Registered</p>
+                    <p class="font-black italic">Nishant Bhardwaj</p>
+                </div>
+            </div>
+
+            <!-- Right: Content -->
+            <div class="lg:w-1/2">
+                <h2 class="text-4xl md:text-5xl font-black uppercase leading-tight italic">
+                    Train with a <span class="text-red-600">Renowned Shooter</span> & International Athlete
+                </h2>
+                <p class="mt-6 text-gray-700 text-lg leading-relaxed">
+                    Under the leadership of <span class="font-bold">Nishant Bhardwaj</span>, Owner of Apex Achiever Shooting Academy, we bring Olympic-standard mentorship to Noida, Sector 47. We don't just teach shooting; we build champions using world-class techniques.
+                </p>
+
+                <!-- 4-Grid Features -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+                    <!-- Feature 1 -->
+                    <div class="flex gap-4">
+                        <div class="text-red-600 text-2xl"><i class="fas fa-certificate"></i></div>
+                        <div>
+                            <h4 class="font-bold uppercase text-sm">Certified Trainers</h4>
+                            <p class="text-gray-500 text-sm">Expert guidance from ISSF-certified mentors at every step.</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="flex gap-4">
+                        <div class="text-red-600 text-2xl"><i class="fas fa-target-shot"></i></div>
+                        <div>
+                            <h4 class="font-bold uppercase text-sm">Modern Facilities</h4>
+                            <p class="text-gray-500 text-sm">State-of-the-art [SIUS Electronic Targets](https://www.sius.com) and professional ranges.</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="flex gap-4">
+                        <div class="text-red-600 text-2xl"><i class="fas fa-clock"></i></div>
+                        <div>
+                            <h4 class="font-bold uppercase text-sm">Flexible Timings</h4>
+                            <p class="text-gray-500 text-sm">Schedules designed to fit student and working professional lifestyles.</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 4 -->
+                    <div class="flex gap-4">
+                        <div class="text-red-600 text-2xl"><i class="fas fa-trophy"></i></div>
+                        <div>
+                            <h4 class="font-bold uppercase text-sm">Proven Results</h4>
+                            <p class="text-gray-500 text-sm">A track record of State, National, and International medals.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- 5. Coach Section -->
+
+    <!-- 5. Coach Section 
     <section class="relative py-24 bg-gray-900 text-white overflow-hidden">
         <div class="absolute inset-0 z-0 opacity-20 grayscale bg-[url('https://images.unsplash.com')] bg-cover"></div>
         <div class="container mx-auto px-4 relative z-10 flex flex-col md:flex-row items-center gap-16">
@@ -467,7 +854,7 @@
                 <a href="tel:+919690868182" class="bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-full font-black transition inline-block">CONTACT COACH</a>
             </div>
         </div>
-    </section>
+    </section>-->
 
     <!-- 6. Locations Section -->
     <section id="locations" class="bg-gray-100 py-20 px-4">
@@ -482,19 +869,115 @@
             </div>
         </div>
     </section>
+<!-- Pricing Plan -->
 
-    <!-- 7. Gallery Section -->
-    <section id="gallery" class="bg-white py-20 px-4">
-        <div class="container mx-auto">
-            <h2 class="text-center text-4xl font-black mb-12 uppercase italic">Our <span class="text-red-600">Gallery</span></h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <img src="./images/nishantMedal.jpg" class="w-full aspect-video object-cover border hover:scale-105 transition duration-500">
-                <img src="./images/galary1.jpg" class="w-full aspect-video object-cover border hover:scale-105 transition duration-500">
-                <img src="./images/galary2.jpg" class="w-full aspect-video object-cover border hover:scale-105 transition duration-500">
-                <img src="./images/galary3.jpg" class="w-full aspect-video object-cover border hover:scale-105 transition duration-500">
-            </div>
+<section class="py-20 bg-white" id="pricingPlan">
+    <div class="container mx-auto px-4">
+        <div class="max-w-md mx-auto text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-800 mb-4">Membership Plans</h2>
+            <p class="text-gray-600">Choose the right plan to start your journey to success.</p>
         </div>
-    </section>
+        <div class="flex flex-wrap justify-center gap-8">
+            <!-- Standard Plan -->
+            <div class="w-full md:w-1/4 max-w-sm bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
+                <div class="p-8">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Standard</h3>
+                    <p class="text-4xl font-bold text-gray-900">₹4,000<span class="text-lg font-normal text-gray-500">/Monthly</span></p>
+                    <p class="text-red-600 mt-2 text-sm font-medium">No Discount</p>
+                    <ul class="mt-6 space-y-4 text-gray-600">
+                        <li class="flex items-center"><svg class="w-5 h-5 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Imported Weapons</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Included Targets</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Coaching</li>
+                    </ul>
+                </div>
+                <div class="p-8 bg-gray-50">
+                    <a href="tel:+919690868182" class="block w-full py-3 px-4 text-center bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 transition duration-300">CALL NOW</a>
+                </div>
+            </div>
+
+            <!-- Silver Plan -->
+            <div class="w-full md:w-1/4 max-w-sm bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
+                <div class="p-8">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Silver</h3>
+                    <p class="text-4xl font-bold text-gray-900">₹10,500<span class="text-lg font-normal text-gray-500">/3 Months</span></p>
+                    <p class="text-red-600 mt-2 text-sm font-medium">12.5% Discount</p>
+                    <ul class="mt-6 space-y-4 text-gray-600">
+                        <li class="flex items-center"><svg class="w-5 h-5 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Imported Weapons</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Included Targets</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Coaching</li>
+                    </ul>
+                </div>
+                <div class="p-8 bg-gray-50">
+                    <a href="tel:+919690868182" class="block w-full py-3 px-4 text-center bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 transition duration-300">CALL NOW</a>
+                </div>
+            </div>
+
+            <!-- Gold Plan (Highlighted) -->
+            <div class="w-full md:w-1/4 max-w-sm bg-white rounded-xl shadow-xl overflow-hidden border-2 border-red-500 transform scale-105">
+                <div class="p-8 bg-red-600 text-white text-center">
+                    <h3 class="text-2xl font-semibold mb-1">Gold</h3>
+                    <p class="text-sm font-medium">Most Popular</p>
+                </div>
+                <div class="p-8">
+                    <p class="text-4xl font-bold text-gray-900">₹19,000<span class="text-lg font-normal text-gray-500">/6 Months</span></p>
+                    <p class="text-red-600 mt-2 text-sm font-medium">20% Discount</p>
+                    <ul class="mt-6 space-y-4 text-gray-600">
+                        <li class="flex items-center"><svg class="w-5 h-5 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Imported Weapons</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Included Targets</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Coaching</li>
+                    </ul>
+                </div>
+                <div class="p-8 bg-gray-50">
+                    <a href="tel:+919690868182" class="block w-full py-3 px-4 text-center bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 transition duration-300">CALL NOW</a>
+                </div>
+            </div>
+
+            <!-- Diamond Plan -->
+             <div class="w-full md:w-1/4 max-w-sm bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
+                <div class="p-8">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Diamond</h3>
+                    <p class="text-4xl font-bold text-gray-900">₹35,000<span class="text-lg font-normal text-gray-500">/Yearly</span></p>
+                    <p class="text-red-600 mt-2 text-sm font-medium">27% Discount</p>
+                    <ul class="mt-6 space-y-4 text-gray-600">
+                         <li class="flex items-center"><svg class="w-5 h-5 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Imported Weapons</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Included Targets</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Coaching</li>
+                    </ul>
+                </div>
+                <div class="p-8 bg-gray-50">
+                    <a href="tel:+919690868182" class="block w-full py-3 px-4 text-center bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 transition duration-300">CALL NOW</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+    <!-- 4. Gallery Section -->
+<section id="gallery" class="py-20 bg-gray-50">
+    <div class="container mx-auto px-6">
+        <h2 class="text-3xl font-black mb-12 italic uppercase border-l-4 border-red-600 pl-4">
+            Inside the <span class="text-red-600">Range</span>
+        </h2>
+
+        <div id="gallery-container" class="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+            <!-- Images injected here -->
+        </div>
+
+        <!-- Load More Button -->
+        <div class="text-center mt-12">
+            <button id="loadMoreBtn" class="bg-black text-white px-8 py-3 rounded-full font-bold uppercase hover:bg-red-600 transition shadow-lg">
+                View More Photos
+            </button>
+        </div>
+    </div>
+</section>
+
+
+
+   
 
     <!-- 8. Footer -->
     <footer class="bg-[#111111] text-white pt-20 pb-10">
@@ -506,9 +989,9 @@
             <div>
                 <h4 class="font-bold uppercase mb-6 text-red-600">Navigation</h4>
                 <ul class="space-y-3 text-sm text-gray-400">
-                    <li><a href="#" class="hover:text-white">Admission</a></li>
-                    <li><a href="#" class="hover:text-white">Fee Structure</a></li>
-                    <li><a href="#" class="hover:text-white">Equipment</a></li>
+                    <li><a href="#coach" class="hover:text-white">Admission</a></li>
+                    <li><a href="#pricingPlan" class="hover:text-white">Fee Structure</a></li>
+                    <!--li><a href="#" class="hover:text-white">Equipment</a></li-->
                 </ul>
             </div>
             <div>
