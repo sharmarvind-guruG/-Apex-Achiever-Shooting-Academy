@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://sharmarvind-gurug.github.io/-Apex-Achiever-Shooting-Academy/sitemap.xml
